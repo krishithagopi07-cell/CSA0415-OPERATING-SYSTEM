@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main() {
+    int n, i, j, temp;
+    int p[10], priority[10];
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("Enter process ID and priority: ");
+        scanf("%d %d", &p[i], &priority[i]);
+    }
+
+    for (i = 0; i < n - 1; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (priority[i] > priority[j]) {
+                temp = priority[i];
+                priority[i] = priority[j];
+                priority[j] = temp;
+
+                temp = p[i];
+                p[i] = p[j];
+                p[j] = temp;
+            }
+        }
+    }
+
+    printf("\nExecution Order:\n");
+    for (i = 0; i < n; i++) {
+        printf("P%d ", p[i]);
+    }
+
+    return 0;
+}
