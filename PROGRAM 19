@@ -1,0 +1,31 @@
+
+#include <stdio.h>
+
+int mutex = 1;
+int shared = 0;
+
+void lock() {
+    while (mutex == 0);
+    mutex = 0;
+}
+
+void unlock() {
+    mutex = 1;
+}
+
+void process(int id) {
+    lock();
+
+    shared++;
+    printf("Process %d: Shared value = %d\n", id, shared);
+
+    unlock();
+}
+
+int main() {
+    process(1);
+    process(2);
+    process(3);
+
+    return 0;
+}
