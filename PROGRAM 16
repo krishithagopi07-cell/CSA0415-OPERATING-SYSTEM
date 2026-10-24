@@ -12,10 +12,10 @@ int main() {
     struct Employee e;
     int n, i, searchId, found = 0;
 
-    fp = fopen("employee.dat", "wb+");
+    fp = tmpfile();
 
     if (fp == NULL) {
-        printf("File cannot be opened");
+        printf("File cannot be opened.\n");
         return 1;
     }
 
@@ -23,12 +23,12 @@ int main() {
     scanf("%d", &n);
 
     for (i = 0; i < n; i++) {
-        printf("\nEnter Employee ID, Name and Salary: ");
+        printf("Enter ID, Name and Salary: ");
         scanf("%d %29s %f", &e.id, e.name, &e.salary);
         fwrite(&e, sizeof(e), 1, fp);
     }
 
-    printf("\nEnter Employee ID to search: ");
+    printf("Enter Employee ID to search: ");
     scanf("%d", &searchId);
 
     for (i = 0; i < n; i++) {
@@ -36,17 +36,17 @@ int main() {
         fread(&e, sizeof(e), 1, fp);
 
         if (e.id == searchId) {
-            printf("\nEmployee Found!");
-            printf("\nID: %d", e.id);
-            printf("\nName: %s", e.name);
-            printf("\nSalary: %.2f\n", e.salary);
+            printf("\nEmployee Found!\n");
+            printf("ID: %d\n", e.id);
+            printf("Name: %s\n", e.name);
+            printf("Salary: %.2f\n", e.salary);
             found = 1;
             break;
         }
     }
 
     if (!found)
-        printf("\nEmployee not found.\n");
+        printf("Employee not found.\n");
 
     fclose(fp);
     return 0;
