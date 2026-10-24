@@ -1,0 +1,62 @@
+
+#include <stdio.h>
+
+int mutex = 1, full = 0, empty = 3;
+int buffer[3], in = 0, out = 0;
+
+void wait(int *s) {
+    while (*s <= 0);
+    (*s)--;
+}
+
+void signal(int *s) {
+    (*s)++;
+}
+
+void produce(int item) {
+    wait(&empty);
+    wait(&mutex);
+
+    buffer[in] = item;
+    printf("Produced: %d\n", item);
+    in = (in + 1) % 3;
+
+    signal(&mutex);
+    signal(&full);
+}
+
+void consume() {
+    wait(&full);
+    wait(&mutex);
+
+    printf("Consumed: %d\n", buffer[out]);
+    out = (out + 1) % 3;
+
+    signal(&mutex);
+    signal(&empty);
+}
+
+int main() {
+    int choice, item;
+
+    while (1) {
+        printf("\n1. Produce\n2. Consume\n3. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter item: ");
+                scanf("%d", &item);
+                produce(item);
+                break;
+            case 2:
+                consume();
+                break;
+            case 3:
+                return 0;
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+}
