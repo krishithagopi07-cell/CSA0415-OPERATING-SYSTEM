@@ -1,0 +1,65 @@
+
+#include <stdio.h>
+
+int main() {
+    FILE *fp;
+    char data[100];
+    int ch;
+
+    do {
+        printf("\n1.Create\n2.Write\n3.Read\n4.Append\n5.Delete\n6.Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &ch);
+        getchar();
+
+        switch(ch) {
+            case 1:
+                fp = fopen("file.txt", "w");
+                if(fp) {
+                    printf("File Created\n");
+                    fclose(fp);
+                }
+                break;
+
+            case 2:
+                fp = fopen("file.txt", "w");
+                if(fp) {
+                    printf("Enter content: ");
+                    fgets(data, sizeof(data), stdin);
+                    fputs(data, fp);
+                    fclose(fp);
+                    printf("Written Successfully\n");
+                } else printf("File Error\n");
+                break;
+
+            case 3:
+                fp = fopen("file.txt", "r");
+                if(fp) {
+                    while(fgets(data, sizeof(data), fp))
+                        printf("%s", data);
+                    fclose(fp);
+                } else printf("File Not Found\n");
+                break;
+
+            case 4:
+                fp = fopen("file.txt", "a");
+                if(fp) {
+                    printf("Enter content: ");
+                    fgets(data, sizeof(data), stdin);
+                    fputs(data, fp);
+                    fclose(fp);
+                    printf("Appended Successfully\n");
+                } else printf("File Error\n");
+                break;
+
+            case 5:
+                if(remove("file.txt") == 0)
+                    printf("File Deleted\n");
+                else
+                    printf("File Not Found\n");
+                break;
+        }
+    } while(ch != 6);
+
+    return 0;
+}
