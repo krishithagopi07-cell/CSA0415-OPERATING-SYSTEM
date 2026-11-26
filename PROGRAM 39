@@ -1,0 +1,45 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int a[20],n,head,size,i,j,temp,total=0;
+
+    printf("Enter number of requests: ");
+    scanf("%d",&n);
+    printf("Enter requests: ");
+    for(i=0;i<n;i++) scanf("%d",&a[i]);
+    printf("Enter initial head: ");
+    scanf("%d",&head);
+    printf("Enter disk size: ");
+    scanf("%d",&size);
+
+    a[n++]=0;
+    a[n++]=size-1;
+
+    for(i=0;i<n;i++)
+        for(j=i+1;j<n;j++)
+            if(a[i]>a[j]) {
+                temp=a[i];
+                a[i]=a[j];
+                a[j]=temp;
+            }
+
+    for(i=0;i<n;i++)
+        if(a[i]>=head) break;
+
+    for(j=i;j<n;j++) {
+        total+=abs(head-a[j]);
+        head=a[j];
+    }
+
+    total+=abs(head-0);
+    head=0;
+
+    for(j=0;j<i;j++) {
+        total+=abs(head-a[j]);
+        head=a[j];
+    }
+
+    printf("Total Head Movement: %d",total);
+    return 0;
+}
