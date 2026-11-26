@@ -1,0 +1,36 @@
+
+#include <stdio.h>
+int main() {
+    int p,o,g,others;
+
+    printf("Enter permission (example 754): ");
+    scanf("%d",&p);
+
+    o=p/100;
+    g=(p/10)%10;
+    others=p%10;
+
+    printf("\nFile Permissions:\n");
+
+    printf("Owner: ");
+    if(o&4) printf("Read ");
+    if(o&2) printf("Write ");
+    if(o&1) printf("Execute ");
+
+    printf("\nGroup: ");
+    if(g&4) printf("Read ");
+    if(g&2) printf("Write ");
+    if(g&1) printf("Execute ");
+
+    printf("\nOthers: ");
+    if(others&4) printf("Read ");
+    if(others&2) printf("Write ");
+    if(others&1) printf("Execute ");
+
+    printf("\n\nTypes of Users:");
+    printf("\n1. Owner");
+    printf("\n2. Group");
+    printf("\n3. Others");
+
+    return 0;
+}
