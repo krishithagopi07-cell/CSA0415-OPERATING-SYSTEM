@@ -1,0 +1,19 @@
+
+#include <stdio.h>
+int main() {
+    char files[20][30];
+    int n,i;
+
+    printf("Enter number of files: ");
+    scanf("%d",&n);
+
+    printf("Enter file names:\n");
+    for(i=0;i<n;i++)
+        scanf("%29s",files[i]);
+
+    printf("Files and Directories:\n");
+    for(i=0;i<n;i++)
+        printf("%s\n",files[i]);
+
+    return 0;
+}
